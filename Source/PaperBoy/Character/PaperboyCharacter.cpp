@@ -17,7 +17,7 @@ APaperboyCharacter::APaperboyCharacter()
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComponent"));
 	BoxComponent->SetupAttachment(RootComponent);
 
-	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &APaperboyCharacter::OnOverlapBegin);
+	
 }
 
 // Called when the game starts or when spawned
@@ -42,7 +42,7 @@ void APaperboyCharacter::Tick(float DeltaTime)
 		AdditionalSpeed = -0.5f;
 	}
 
-	AddMovementInput(FVector(0.75f + AdditionalSpeed, InputMovement.Y,0));
+	AddMovementInput(FVector(CharacterSpeed + AdditionalSpeed, InputMovement.Y,0));
 }
 
 // Called to bind functionality to input
@@ -71,17 +71,5 @@ void APaperboyCharacter::CreateProjectile(bool bIsShootingRight)
 	}
 }
 
-void APaperboyCharacter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) 
-{
-	if (OtherActor && OtherActor != this) 
-	{
-		AGoal* ImapctedGoal = Cast<AGoal>(OtherActor); 
-		{
-			if (ImapctedGoal) 
-			{
-				ImapctedGoal->OnReach();
-			}
-		}
-	}
-}
+
 

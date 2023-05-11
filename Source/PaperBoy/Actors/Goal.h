@@ -15,8 +15,15 @@ public:
 	// Sets default values for this actor's properties
 	AGoal();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly);
+	class UBoxComponent* BoxComponent;
+
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnReach();
+
+
+	UFUNCTION()
+		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 	// Called when the game starts or when spawned
